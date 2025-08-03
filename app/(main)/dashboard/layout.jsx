@@ -1,7 +1,7 @@
 import Header from '@/components/custom/Header'
 import React from 'react'
 
-const DahboardLayout = ({children}) => {
+const DashboardLayout = ({children}) => {
   return (
     <div>
         <Header/>
@@ -10,4 +10,4 @@ const DahboardLayout = ({children}) => {
   )
 }
 
-export default DahboardLayout
+export default DashboardLayout

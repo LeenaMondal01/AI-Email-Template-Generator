@@ -1,5 +1,5 @@
 "use client"
-import React, { use, useContext, useEffect, useState } from 'react'
+import React, {useContext, useEffect, useState } from 'react'
 import { ConvexProvider, ConvexReactClient } from "convex/react";
 import { GoogleOAuthProvider } from '@react-oauth/google';
 import { UserDetailContext } from '@/context/UserDetailContext';
