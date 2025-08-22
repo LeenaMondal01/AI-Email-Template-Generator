@@ -30,19 +30,18 @@ const StartFromScratch = () => {
 
     setLoading(true);
     try {
-        const newClientTid = uuid4(); // Generate a unique client-side ID for 'tid'
-
-        // Arguments must match your convex/schema.ts and convex/emailTemplate.ts createTemplate mutation args
+        const newClientTid = uuid4(); 
         const newTemplateConvexId = await createNewTemplateMutation({
-            tid: newClientTid,       // REQUIRED by your schema
-            design: [],              // REQUIRED by your schema
-            description: "",         // REQUIRED by your schema
-            email: userDetail.email, // REQUIRED by your schema
-            // If your schema includes 'name: v.string()', add name: "Untitled Template" here
-            // If your schema includes 'userId: v.id("users")', add userId: userDetail._id here
+            tid: newClientTid, 
+            design: [],            
+            description: "",        
+            email: userDetail.email, 
         });
         
         console.log("New blank template created with Convex ID:", newTemplateConvexId, "and client TID:", newClientTid);
+        if (typeof window !== "undefined") {
+            localStorage.setItem("emailTemplate", JSON.stringify([]));
+        }
         
         // Navigate using the client-generated tid, which your editor page should then query by
         router.push(`/editor/${newClientTid}`); 

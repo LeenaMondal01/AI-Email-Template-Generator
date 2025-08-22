@@ -39,7 +39,7 @@ const Hero = () => {
           // Logic for 'Try Demo' - scroll to demo section
           document.getElementById('demo-section')?.scrollIntoView({ behavior: 'smooth' });
         }}>
-          Try Demo
+          See Demo
         </Button>
         <Button onClick={() => {
           // Logic for 'How It Works' - scroll to how-it-works section

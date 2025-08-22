@@ -11,7 +11,7 @@ import React, { useEffect, useState } from 'react'
 
 const Editor = () => {
   const [viewHTMLCode,setViewHTMLCode] = useState();
-  const [loading,setLoading] =useState(false);
+  const [loading,setLoading] = useState(false);
   const {templateId} = useParams();
   const {userDetail,setUserDetail} = useUserDetail();
   const {emailTemplate,setEmailTemplate} = useEmailTemplate();

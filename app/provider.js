@@ -28,14 +28,17 @@ const Provider = ({children}) => {
         const storage = JSON.parse(localStorage.getItem('userDetail'));
         // const emailTemplateStorage = JSON.parse(localStorage.getItem('emailTemplate') ?? '{}');
         // emailTemplateStorage != undefined && setEmailTemplate(emailTemplateStorage??[]);
-        const raw = localStorage.getItem("emailTemplate");
-        const parsed = safeParseJSON(raw, []);
+        const stored = localStorage.getItem("emailTemplate");
+        const parsed = safeParseJSON(stored, []);
     setEmailTemplate(Array.isArray(parsed) ? parsed : []);
         if(!storage?.email || !storage){
           //redirect to home screen
         }
         else{
           setUserDetail(storage);
+        }
+        if (stored) {
+          setEmailTemplate(JSON.parse(stored));
         }
       }
     },[])

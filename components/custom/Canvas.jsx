@@ -115,10 +115,6 @@ const Canvas = ({viewHTMLCode,closeDialog}) => {
     const getHTMLCode = useCallback(() => {
       if(htmlRef.current){
         const htmlContent = htmlRef.current.innerHTML;
-        // console.log(htmlContent); // Removed console.log
-        // You'll need to clean up the HTML content here to remove editor-specific classes/elements.
-        // For example, remove classes like 'border border-dashed border-blue-500', 'bg-purple-100',
-        // and remove the absolute positioning div with Trash/Arrows.
         const cleanedHtml = cleanEditorHtml(htmlContent); // Call a new helper function
         setHtmlCode(cleanedHtml);
       }
@@ -170,8 +166,7 @@ const Canvas = ({viewHTMLCode,closeDialog}) => {
               el.remove();
           }
       });
-      // A more robust way might be to only include actual elements in your template object
-      // rather than relying on innerHTML of the editor.
+
 
       return tempDiv.innerHTML;
     };
@@ -179,15 +174,10 @@ const Canvas = ({viewHTMLCode,closeDialog}) => {
 
     // Handler for clicks on the canvas background
     const handleCanvasClick = useCallback((e) => {
-        // Check if the click occurred on the direct canvas background div
-        // (htmlRef.current is the outer canvas div)
-        // AND if the click target is NOT inside any element that would set selectedElement
-        // This is a simplified check. A more robust one might check if e.target is
-        // one of the specific column or element divs.
         if (htmlRef.current && e.target === htmlRef.current) {
-            setSelectedElement(null); // Deselect any element
+            setSelectedElement(null); 
         }
-        // console.log("Canvas Click:", e.target, e.currentTarget); // For debugging
+        
     }, [setSelectedElement]);
 
 
