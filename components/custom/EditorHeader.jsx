@@ -83,7 +83,7 @@
 
 "use client"
 import Image from 'next/image'
-import React, { useCallback } from 'react'
+import React, { useState } from 'react'
 import { Button } from '../ui/button'
 import { Code, Monitor, Smartphone, Download } from 'lucide-react'
 import { useEmailTemplate, useScreenSize } from '@/app/provider'
@@ -92,12 +92,15 @@ import { useParams } from 'next/navigation'
 import { api } from '@/convex/_generated/api'
 import Link from 'next/link'
 import { toast } from 'sonner'
+import html2canvas from 'html2canvas';
 
-const EditorHeader = ({viewHTMLCode, generateTemplateImage}) => {
+const EditorHeader = ({viewHTMLCode, htmlCode, generateTemplateImage}) => {
   const {screenSize,setScreenSize} = useScreenSize();
   const updateEmailTemplate = useMutation(api.emailTemplate.UpdateTemplateDesign);
   const {templateId} = useParams();
   const {emailTemplate,setEmailTemplate} = useEmailTemplate();
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [description, setDescription] = useState('');
   
   function sanitize(obj) {
     if (Array.isArray(obj)) {
@@ -128,15 +131,30 @@ const EditorHeader = ({viewHTMLCode, generateTemplateImage}) => {
     }
   };
 
-  const handleExportImage = useCallback(async () => {
-      try {
-          await generateTemplateImage('png'); // Generate PNG image
-          toast('Template image downloaded successfully!');
-      } catch (error) {
-          console.error('Error exporting image:', error);
-          toast.error(`Failed to download image: ${error.message}`);
-      }
-  }, [generateTemplateImage]);
+const handleExportImage = async () => {
+  try {
+    const templateElement = document.getElementById('email-template-root');
+    if (!templateElement) {
+      toast.error('Template element not found!');
+      return;
+    }
+    const canvas = await html2canvas(templateElement, {
+      backgroundColor: '#fff',
+      useCORS: true // Add this line to handle cross-origin images
+    });
+    const image = canvas.toDataURL('image/png');
+    const link = document.createElement('a');
+    link.href = image;
+    link.download = 'email-template.png';
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+    toast('Template image downloaded successfully!');
+  } catch (error) {
+    console.error('Error exporting image:', error);
+    toast.error(`Failed to download image: ${error.message}`);
+  }
+};
 
   return (
     <div className='p-4 shadow-sm flex justify-between items-center'>

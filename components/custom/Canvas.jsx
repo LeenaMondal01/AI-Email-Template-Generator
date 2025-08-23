@@ -183,7 +183,7 @@ const Canvas = ({viewHTMLCode,closeDialog}) => {
 
   return (
     <div className='mt-20 flex justify-center'>
-        <div className={`bg-white p-6 w-full ${screenSize === 'desktop' ? 'max-w-2xl' : 'max-w-md'}
+        <div id="email-template-root" className={`bg-white p-6 w-full ${screenSize === 'desktop' ? 'max-w-2xl' : 'max-w-md'}
           ${dragOver ? 'bg-purple-100 p-4' : ''}`}
           onDragOver={onDragOver}
           onDrop={onDropHandle}
