@@ -8,7 +8,7 @@ import LogoComponent from '../Element/LogoComponent';
 import DividerComponent from '../Element/DividerComponent';
 import LogoHeaderComponent from '../Element/LogoHeaderComponent';
 import SocialIconsComponent from '../Element/SocialIconsComponent';
-import { ArrowDown, ArrowUp, Trash, Trash2, Trash2Icon } from 'lucide-react';
+import { ArrowDown, ArrowUp, Trash2 } from 'lucide-react';
 
 const ColumnLayout = ({layout}) => {
     const [dragOver,setDragOver] = useState();

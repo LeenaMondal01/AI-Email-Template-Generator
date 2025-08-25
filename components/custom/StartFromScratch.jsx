@@ -6,23 +6,21 @@ import { api } from '@/convex/_generated/api';
 import { useUserDetail } from '@/app/provider';
 import { Button } from '@/components/ui/button';
 import { Loader2, PencilLine } from 'lucide-react';
-import { v4 as uuid4 } from 'uuid'; // Ensure you have 'npm install uuid' and 'npm install @types/uuid' if using TypeScript
+import { v4 as uuid4 } from 'uuid'; 
 
 const StartFromScratch = () => {
   const router = useRouter();
-  // Using api.emailTemplate.createTemplate if that's the name you chose in your Convex file.
-  // If your Convex mutation is named SaveTemplate, then it would be api.emailTemplate.SaveTemplate.
-  const createNewTemplateMutation = useMutation(api.emailTemplate.createTemplate); // Make sure this matches your Convex function name
+  const createNewTemplateMutation = useMutation(api.emailTemplate.createTemplate);
   
   const { userDetail, isAuthLoading } = useUserDetail();
-  const [loading, setLoading] = React.useState(false); // Using React.useState explicitly for clarity
+  const [loading, setLoading] = React.useState(false);
 
   const handleStart = async () => {
     if (isAuthLoading || loading) {
         alert("Please wait, checking login status and template creation status.");
         return;
     }
-    // Check for userDetail.email as per your schema, or userDetail._id if you're using userId in schema
+
     if (!userDetail || !userDetail.email) { 
         alert("You must be logged in with a valid email to create a template. Please sign in via the header.");
         return;
@@ -43,7 +41,6 @@ const StartFromScratch = () => {
             localStorage.setItem("emailTemplate", JSON.stringify([]));
         }
         
-        // Navigate using the client-generated tid, which your editor page should then query by
         router.push(`/editor/${newClientTid}`); 
 
     } catch (error) {
@@ -80,4 +77,4 @@ const StartFromScratch = () => {
   );
 };
 
-export default StartFromScratch; // CRITICAL: Ensure this is a default export
+export default StartFromScratch;

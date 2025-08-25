@@ -55,10 +55,6 @@ export const UpdateTemplateDesign = mutation({
             .filter(q=>q.eq(q.field('tid'),args.tid))
             .collect();
 
-    //     if (!result || result.length === 0 || !result[0]?._id) {
-    //   console.error("Update failed: No template found for tid", args.tid);
-    //   throw new Error(`Template with tid '${args.tid}' not found.`);
-    // }
         const docId = result[0]._id;
         //console.log(docId);
 

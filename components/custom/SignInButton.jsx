@@ -5,9 +5,11 @@ import { useGoogleLogin } from '@react-oauth/google';
 import axios from 'axios';
 import { useMutation } from 'convex/react';
 import { api } from '@/convex/_generated/api';
+import { useUserDetail } from '@/app/provider';
 
 const SignInButton = () => {
-    const CreateUser = useMutation(api.users.CreateUser)
+    const CreateUser = useMutation(api.users.CreateUser);
+    const { setUserDetail } = useUserDetail();
     
     const googleLogin = useGoogleLogin({
     onSuccess: async (tokenResponse) => {
@@ -35,6 +37,7 @@ const SignInButton = () => {
         if(typeof window !== undefined){
             localStorage.setItem('userDetail',JSON.stringify(userDetail));
         }
+        setUserDetail(userDetail);
 
   },
   onError: errorResponse => console.log(errorResponse),

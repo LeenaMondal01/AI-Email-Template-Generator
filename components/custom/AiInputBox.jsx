@@ -8,7 +8,7 @@ import { useMutation } from 'convex/react';
 import { api } from '@/convex/_generated/api';
 import { v4 as uuid4 } from 'uuid';
 import { useUserDetail } from '@/app/provider';
-import { Loader, Loader2 } from 'lucide-react';
+import { Loader2 } from 'lucide-react';
 import { useRouter } from 'next/navigation';
 
 const AiInputBox = () => {
