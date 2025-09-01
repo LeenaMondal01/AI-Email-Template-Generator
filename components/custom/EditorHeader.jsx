@@ -107,12 +107,12 @@ const EditorHeader = ({ viewHTMLCode, htmlCode }) => {
 
       setCurrentName(nameFromModal); // reflect in UI
       toast.success('Email Template Saved Successfully!');
-      // router.push("/dashboard");
-    } catch (error) {
-      console.error("Save failed:", error);
-      toast.error('Failed to save template');
-    }
-  }, [emailTemplate, templateId, updateEmailTemplate, updateTemplateDescription]);
+      router.push("/dashboard");
+      } catch (error) {
+        console.error("Save failed:", error);
+        toast.error('Failed to save template');
+      }
+    }, [emailTemplate, templateId, updateEmailTemplate, updateTemplateDescription]);
 
   // Replaced html2canvas with html-to-image
   const handleExportImage = async () => {
