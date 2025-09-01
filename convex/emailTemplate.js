@@ -8,6 +8,7 @@ export const SaveTemplate = mutation({
         design: v.any(),
         email: v.string(),
         description: v.string(),
+        photo: v.optional(v.string()),
     },
     handler: async (ctx,args) => {
         try {
@@ -48,6 +49,7 @@ export const UpdateTemplateDesign = mutation({
     args: {
         tid: v.string(),
         design: v.any(),   // Email Template Design
+        photo: v.optional(v.string()),
     },
     handler: async (ctx,args) => {
         // Get Doc Id
@@ -60,7 +62,8 @@ export const UpdateTemplateDesign = mutation({
 
         // Update that docId
         await ctx.db.patch(docId, {
-            design: args.design
+            design: args.design,
+            photo: args.photo ?? result[0].photo,
         });
     }
 })
@@ -98,5 +101,44 @@ export const createTemplate = mutation({
             console.error("Convex createTemplate error:", e);
             throw new Error("Failed to create template: " + e.message);
         }
+    }
+});
+
+export const DeleteTemplate = mutation({
+    args: { tid: v.string(), email: v.string() },
+    handler: async (ctx, args) => {
+        const result = await ctx.db.query("emailTemplates")
+            .filter(q => q.and(
+                q.eq(q.field("tid"), args.tid),
+                q.eq(q.field("email"), args.email)
+            ))
+            .collect();
+
+        if (result.length > 0) {
+            await ctx.db.delete(result[0]._id);
+        }
+    }
+});
+
+export const UpdateTemplateDescription = mutation({
+    args: {
+        tid: v.string(),
+        email: v.string(),
+        description: v.string()
+    },
+    handler: async (ctx, args) => {
+        const result = await ctx.db.query("emailTemplates")
+            .filter(q => q.and(
+                q.eq(q.field("tid"), args.tid),
+                q.eq(q.field("email"), args.email)
+            ))
+            .collect();
+
+        const doc = result?.[0];
+        if (!doc) {
+        throw new Error("Template not found");
+        }
+
+        await ctx.db.patch(doc._id, { description: args.description });
     }
 });

@@ -12,6 +12,7 @@ export default defineSchema({
         tid: v.string(),
         design: v.any(),      //Save JSON Data
         description: v.any(),
-        email: v.string()
+        email: v.string(),
+        photo: v.optional(v.string()),
     })
 })

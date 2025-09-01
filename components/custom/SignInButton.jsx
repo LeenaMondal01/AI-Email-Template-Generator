@@ -29,7 +29,7 @@ const SignInButton = () => {
             picture: user?.picture,
         })
 
-        //save to local storage
+        // save to local storage
         const userDetail = {
             ...user,
             _id:result?._id??result
@@ -37,6 +37,7 @@ const SignInButton = () => {
         if(typeof window !== undefined){
             localStorage.setItem('userDetail',JSON.stringify(userDetail));
         }
+        // Immediately update context → UI refreshes
         setUserDetail(userDetail);
 
   },
